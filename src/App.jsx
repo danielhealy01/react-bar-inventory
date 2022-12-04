@@ -1,11 +1,13 @@
 /* 
 TODO:
-Conditional render a disable on the only wine / only beer if other is true
 Styling for app
+prevent default form
 
 */
 
 import { useState } from "react";
+import './App.css'
+
 
 function FilterableProductTable({ products }) {
   const [filterText, setFilterText] = useState("");
@@ -114,52 +116,55 @@ function SearchBar({
     <form>
       <input
         type="text"
+        className="textInput"
         value={filterText}
-        placeholder="Search..."
+        placeholder="Product Search..."
         onChange={(e) => onFilterTextChange(e.target.value)}
       />
-      <label>
-        <input
-          type="checkbox"
-          checked={inStockOnly}
-          onChange={(e) => onInStockOnlyChange(e.target.checked)}
-        />{" "}
-        Only products in stock
-      </label>
-      <label>
-        {isWineOnly ? (
-          <input
-            disabled={true}
-            type="checkbox"
-            checked={isBeerOnly}
-            onChange={(e) => setIsBeerOnly(e.target.checked)}
-          />
-        ) : (
+      <fieldset>
+        <label>
           <input
             type="checkbox"
-            checked={isBeerOnly}
-            onChange={(e) => setIsBeerOnly(e.target.checked)}
-          />
-        )}{" "}
-        Only BEER
-      </label>
-      <label>
-        {isBeerOnly ? (
-          <input
-            disabled={true}
-            type="checkbox"
-            checked={isWineOnly}
-            onChange={(e) => setIsWineOnly(e.target.checked)}
-          />
-        ) : (
-          <input
-            type="checkbox"
-            checked={isWineOnly}
-            onChange={(e) => setIsWineOnly(e.target.checked)}
-          />
-        )}{" "}
-        Only WINE
-      </label>
+            checked={inStockOnly}
+            onChange={(e) => onInStockOnlyChange(e.target.checked)}
+          />{" "}
+          Only IN STOCK
+        </label>
+        <label>
+          {isWineOnly ? (
+            <input
+              disabled={true}
+              type="checkbox"
+              checked={isBeerOnly}
+              onChange={(e) => setIsBeerOnly(e.target.checked)}
+            />
+          ) : (
+            <input
+              type="checkbox"
+              checked={isBeerOnly}
+              onChange={(e) => setIsBeerOnly(e.target.checked)}
+            />
+          )}{" "}
+          Only BEER
+        </label>
+        <label>
+          {isBeerOnly ? (
+            <input
+              disabled={true}
+              type="checkbox"
+              checked={isWineOnly}
+              onChange={(e) => setIsWineOnly(e.target.checked)}
+            />
+          ) : (
+            <input
+              type="checkbox"
+              checked={isWineOnly}
+              onChange={(e) => setIsWineOnly(e.target.checked)}
+            />
+          )}{" "}
+          Only WINE
+        </label>
+      </fieldset>
     </form>
   );
 }
@@ -294,5 +299,9 @@ const PRODUCTS = [
 ];
 
 export default function App() {
-  return <FilterableProductTable products={PRODUCTS} />;
+  return (
+    <div className="mainContainer">
+      <FilterableProductTable products={PRODUCTS} />
+    </div>
+  );
 }
