@@ -1,3 +1,10 @@
+/* 
+TODO:
+Conditional render a disable on the only wine / only beer if other is true
+Styling for app
+
+*/
+
 import { useState } from "react";
 
 function FilterableProductTable({ products }) {
@@ -88,12 +95,6 @@ function ProductTable({ products, filterText, inStockOnly, isBeerOnly, isWineOnl
 
   return (
     <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-        </tr>
-      </thead>
       <tbody>{rows}</tbody>
     </table>
   );
