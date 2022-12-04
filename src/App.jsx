@@ -127,19 +127,37 @@ function SearchBar({
         Only products in stock
       </label>
       <label>
-        <input
-          type="checkbox"
-          checked={isBeerOnly}
-          onChange={(e) => setIsBeerOnly(e.target.checked)}
-        />{" "}
+        {isWineOnly ? (
+          <input
+            disabled={true}
+            type="checkbox"
+            checked={isBeerOnly}
+            onChange={(e) => setIsBeerOnly(e.target.checked)}
+          />
+        ) : (
+          <input
+            type="checkbox"
+            checked={isBeerOnly}
+            onChange={(e) => setIsBeerOnly(e.target.checked)}
+          />
+        )}{" "}
         Only BEER
       </label>
       <label>
-        <input
-          type="checkbox"
-          checked={isWineOnly}
-          onChange={(e) => setIsWineOnly(e.target.checked)}
-        />{" "}
+        {isBeerOnly ? (
+          <input
+            disabled={true}
+            type="checkbox"
+            checked={isWineOnly}
+            onChange={(e) => setIsWineOnly(e.target.checked)}
+          />
+        ) : (
+          <input
+            type="checkbox"
+            checked={isWineOnly}
+            onChange={(e) => setIsWineOnly(e.target.checked)}
+          />
+        )}{" "}
         Only WINE
       </label>
     </form>
