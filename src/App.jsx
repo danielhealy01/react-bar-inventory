@@ -12,8 +12,9 @@ function FilterableProductTable({ products }) {
         filterText={filterText}
         inStockOnly={inStockOnly}
         isBeerOnly={isBeerOnly}
-        // isWineOnly={}
+        isWineOnly={isWineOnly}
         setIsBeerOnly={setIsBeerOnly}
+        setIsWineOnly={setIsWineOnly}
         onFilterTextChange={setFilterText}
         onInStockOnlyChange={setInStockOnly}
       />
@@ -22,6 +23,7 @@ function FilterableProductTable({ products }) {
         filterText={filterText}
         inStockOnly={inStockOnly}
         isBeerOnly={isBeerOnly}
+        isWineOnly={isWineOnly}
       />
     </div>
   );
@@ -30,7 +32,7 @@ function FilterableProductTable({ products }) {
 function ProductCategoryRow({ category }) {
   return (
     <tr>
-      <th colSpan="4">{category}</th>
+      <th colSpan="5">{category}</th>
     </tr>
   );
 }
@@ -45,14 +47,15 @@ function ProductRow({ product }) {
   return (
     <tr>
       <td>{name}</td>
-      <td>{product.price}</td>
-      <td>{product.serving}</td>
+      <td>{product.style}</td>
       <td>{product.ABV}</td>
+      <td>{product.serving}</td>
+      <td>{product.price}</td>
     </tr>
   );
 }
 
-function ProductTable({ products, filterText, inStockOnly, isBeerOnly }) {
+function ProductTable({ products, filterText, inStockOnly, isBeerOnly, isWineOnly }) {
   const rows = [];
   let lastCategory = null;
 
@@ -64,6 +67,9 @@ function ProductTable({ products, filterText, inStockOnly, isBeerOnly }) {
       return;
     }
     if (isBeerOnly && product.category !== "BEER") {
+      return;
+    }
+    if (isWineOnly && product.category !== "WINE") {
       return;
     }
     
@@ -100,6 +106,8 @@ function SearchBar({
   onInStockOnlyChange,
   isBeerOnly,
   setIsBeerOnly,
+  isWineOnly,
+  setIsWineOnly,
 }) {
   return (
     <form>
@@ -115,7 +123,7 @@ function SearchBar({
           checked={inStockOnly}
           onChange={(e) => onInStockOnlyChange(e.target.checked)}
         />{" "}
-        Only show products in stock
+        Only products in stock
       </label>
       <label>
         <input
@@ -124,6 +132,14 @@ function SearchBar({
           onChange={(e) => setIsBeerOnly(e.target.checked)}
         />{" "}
         Only BEER
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={isWineOnly}
+          onChange={(e) => setIsWineOnly(e.target.checked)}
+        />{" "}
+        Only WINE
       </label>
     </form>
   );
@@ -135,7 +151,8 @@ const PRODUCTS = [
     price: "£5.20",
     serving: "Pint",
     stocked: true,
-    name: "IPA1",
+    name: "Cosmic Dust",
+    style: "IPA",
     ABV: "3.6%",
   },
   {
@@ -143,7 +160,8 @@ const PRODUCTS = [
     price: "£5.40",
     serving: "Pint",
     stocked: true,
-    name: "Stout1",
+    name: "Brane: Reimagined",
+    style: "Stout",
     ABV: "4.6%",
   },
   {
@@ -151,7 +169,8 @@ const PRODUCTS = [
     price: "£5.20",
     serving: "Pint",
     stocked: true,
-    name: "Lager",
+    name: "Studio Lager",
+    style: "Lager",
     ABV: "4.0%",
   },
   {
@@ -159,7 +178,8 @@ const PRODUCTS = [
     price: "£5.20",
     serving: "1/2",
     stocked: true,
-    name: "Stout2",
+    name: "Jouletide",
+    style: "Stout",
     ABV: "11.2%",
   },
   {
@@ -167,7 +187,8 @@ const PRODUCTS = [
     price: "£4.50",
     serving: "2/3",
     stocked: true,
-    name: "Sour1",
+    name: "Symmetries of Nature",
+    style: "Sour",
     ABV: "4.5%",
   },
   {
@@ -175,7 +196,8 @@ const PRODUCTS = [
     price: "£4.20",
     serving: "2/3",
     stocked: true,
-    name: "IPA2",
+    name: "Kviek it Simple",
+    style: "IPA",
     ABV: "6.0%",
   },
   {
@@ -183,7 +205,8 @@ const PRODUCTS = [
     price: "£5.60",
     serving: "Pint",
     stocked: true,
-    name: "Pale",
+    name: "Termination Shock",
+    style: "Pale",
     ABV: "5.4%",
   },
   {
@@ -191,7 +214,8 @@ const PRODUCTS = [
     price: "£4.50",
     serving: "2/3",
     stocked: true,
-    name: "Sour2",
+    name: "Planetary Alignment",
+    style: "Sour",
     ABV: "7.2%",
   },
   {
@@ -199,7 +223,8 @@ const PRODUCTS = [
     price: "£4.20",
     serving: "2/3",
     stocked: false,
-    name: "IPA3",
+    name: "Non-Standard Candle",
+    style: "IPA3",
     ABV: "6.8%",
   },
   {
@@ -207,7 +232,8 @@ const PRODUCTS = [
     price: "£4.20",
     serving: "1/2",
     stocked: true,
-    name: "IPA4",
+    name: "Universal Theory 3.0",
+    style: "IPA",
     ABV: "8.0%",
   },
   {
@@ -216,6 +242,7 @@ const PRODUCTS = [
     serving: "125ml",
     stocked: true,
     name: "Vinho Verde",
+    style: "White",
     ABV: "11.0%",
   },
   {
@@ -224,6 +251,7 @@ const PRODUCTS = [
     serving: "125ml",
     stocked: true,
     name: "Barbera d'alba",
+    style: "Red",
     ABV: "13.0%",
   },
   {
@@ -232,6 +260,7 @@ const PRODUCTS = [
     serving: "125ml",
     stocked: false,
     name: "Primitivo",
+    style: "Red",
     ABV: "13.5%",
   },
   {
@@ -240,6 +269,7 @@ const PRODUCTS = [
     serving: "125ml",
     stocked: true,
     name: "Pinot Gris",
+    style: "White",
     ABV: "11.5%",
   },
 ];
