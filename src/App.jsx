@@ -3,12 +3,17 @@ import { useState } from "react";
 function FilterableProductTable({ products }) {
   const [filterText, setFilterText] = useState("");
   const [inStockOnly, setInStockOnly] = useState(false);
+  const [isBeerOnly, setIsBeerOnly] = useState(false);
+  const [isWineOnly, setIsWineOnly] = useState(false);
 
   return (
     <div>
       <SearchBar
         filterText={filterText}
         inStockOnly={inStockOnly}
+        isBeerOnly={isBeerOnly}
+        // isWineOnly={}
+        setIsBeerOnly={setIsBeerOnly}
         onFilterTextChange={setFilterText}
         onInStockOnlyChange={setInStockOnly}
       />
@@ -16,6 +21,7 @@ function FilterableProductTable({ products }) {
         products={products}
         filterText={filterText}
         inStockOnly={inStockOnly}
+        isBeerOnly={isBeerOnly}
       />
     </div>
   );
@@ -46,7 +52,7 @@ function ProductRow({ product }) {
   );
 }
 
-function ProductTable({ products, filterText, inStockOnly }) {
+function ProductTable({ products, filterText, inStockOnly, isBeerOnly }) {
   const rows = [];
   let lastCategory = null;
 
@@ -57,6 +63,11 @@ function ProductTable({ products, filterText, inStockOnly }) {
     if (inStockOnly && !product.stocked) {
       return;
     }
+    if (isBeerOnly && product.category !== "BEER") {
+      return;
+    }
+    
+
     if (product.category !== lastCategory) {
       rows.push(
         <ProductCategoryRow
@@ -87,6 +98,8 @@ function SearchBar({
   inStockOnly,
   onFilterTextChange,
   onInStockOnlyChange,
+  isBeerOnly,
+  setIsBeerOnly,
 }) {
   return (
     <form>
@@ -103,6 +116,14 @@ function SearchBar({
           onChange={(e) => onInStockOnlyChange(e.target.checked)}
         />{" "}
         Only show products in stock
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={isBeerOnly}
+          onChange={(e) => setIsBeerOnly(e.target.checked)}
+        />{" "}
+        Only BEER
       </label>
     </form>
   );
