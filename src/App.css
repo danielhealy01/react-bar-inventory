@@ -1,5 +1,4 @@
-
-html{
+* {
   max-width: 100vw;
   margin: 0;
   padding: 0;
@@ -7,18 +6,14 @@ html{
 }
 
 body {
-  margin: 0;
-
   background: linear-gradient(-45deg, hsl(22, 82%, 63%), hsl(273, 88%, 61%), hsl(196, 72%, 49%), hsl(166, 72%, 49%));
-    background-size: 400% 400%;
-    animation: gradient 5s ease-in-out infinite;
+  background-size: 400% 400%;
+  animation: gradient 5s ease-in-out infinite;
 
-    width: 100vw;
-    padding-top: 2.5vh;
-    padding-bottom: 2.5vh;
-    min-height: 100vh;
-    max-height: max-content;
-    position: relative;
+  padding-top: 2.5vh;
+  padding-bottom: 2.5vh;
+  min-height: 100vh;
+  max-height: max-content;
 }
 
 @keyframes gradient {
@@ -41,23 +36,14 @@ body {
   align-items: center;
   justify-content: center;
   width: max-content;
-  padding: 2rem;
+  padding: 3vh 2rem 2rem 2rem;
   margin: 0 auto;
-  background-color: rgb(36, 35, 42);
-
+  background-color: rgb(47, 46, 54);
   border-radius: 0.8rem;
-  
-  position: relative;
-  
-    min-width: 40%;
-      max-width: 90%;
-  
 
-
-  padding-top: 3vh;
-  /* padding-left: 2rem;
-  padding-right: 2rem;
-  padding-bottom: 5rem; */
+  /* Keep shape while text-filtering table*/
+  min-width: 40%;
+  max-width: 90%;
 }
 
 table {
@@ -71,6 +57,7 @@ form {
 fieldset {
   all: unset;
   /* reset fieldset*/ 
+  
   display: flex;
   flex-direction: column;
   padding-top: 0.4rem;
@@ -100,7 +87,7 @@ td {
   .mainContainer {
     line-height: 18px;
     font-size: 0.8rem;
-    padding-right: 0.rem;
+    padding-right: 0.2rem;
     padding-left: 0.3rem;
   }
 
@@ -111,20 +98,18 @@ td {
 
   table {
     min-width: 357px;
-
   }
   
 }
 
-@media only screen and (max-width: 368px) {
+@media only screen and (max-width: 417px) {
   .mainContainer {
     line-height: 17px;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     max-width: 90vw;
-
-        padding-right: 0.05rem;
-          padding-left: 0.03rem;
-          padding-bottom:0.3rem;
+    padding-right: 0.05rem;
+    padding-left: 0.03rem;
+    padding-bottom:0.3rem;
   }
 
   td {
@@ -138,7 +123,6 @@ td {
 
   table {
     min-width: unset;
-
   }
   
 }
