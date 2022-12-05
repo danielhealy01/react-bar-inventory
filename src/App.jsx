@@ -1,10 +1,3 @@
-/* 
-TODO:
-Styling for app
-prevent default form
-
-*/
-
 import { useState } from "react";
 import './App.css'
 
@@ -113,7 +106,9 @@ function SearchBar({
   setIsWineOnly,
 }) {
   return (
-    <form>
+    <form onSubmit={(e) => {
+      e.preventDefault()
+    }}>
       <input
         type="text"
         className="textInput"
